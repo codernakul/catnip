@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAT Mock — TCS iON</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     SCREEN 1 — WELCOME / CANDIDATE INFO
+══════════════════════════════════════ -->
+<div id="welcome-screen" class="screen active">
+  <div class="hdr">
+    <div class="hdr-in">
+      <div class="logo">
+        <span class="logo-t">TCS</span>
+        <span class="logo-i">iON</span>
+      </div>
+      <div class="hdr-sep"></div>
+      <div class="hdr-exam">CAT 2024 &mdash; Mock Test</div>
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:flex-start;justify-content:center;flex:1;padding:24px 16px;overflow:auto;">
+    <div class="wcard">
+      <div class="wbanner">
+        <div class="wbanner-top">
+          <div class="wbanner-avatar js-avatar-letter">A</div>
+          <div>
+            <h1 id="cand-name-banner">Welcome, Candidate</h1>
+            <p>Please verify your details before proceeding to the exam.</p>
+          </div>
+        </div>
+        <div class="wbanner-notice">
+          &#9888;&nbsp; Verify your details below. Report any discrepancy to the invigilator immediately.
+        </div>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-row">
+          <span class="info-lbl">Candidate Name</span>
+          <span class="info-val" id="info-name">&mdash;</span>
+        </div>
+        <div class="info-row">
+          <span class="info-lbl">Registration Number</span>
+          <span class="info-val" id="info-reg">&mdash;</span>
+        </div>
+        <div class="info-row">
+          <span class="info-lbl">Test Centre</span>
+          <span class="info-val" id="info-centre">&mdash;</span>
+        </div>
+        <div class="info-row">
+          <span class="info-lbl">Centre Code</span>
+          <span class="info-val" id="info-code">&mdash;</span>
+        </div>
+        <div class="info-row">
+          <span class="info-lbl">Exam Date</span>
+          <span class="info-val" id="info-date">&mdash;</span>
+        </div>
+        <div class="info-row">
+          <span class="info-lbl">Session</span>
+          <span class="info-val" id="info-session">&mdash;</span>
+        </div>
+        <div class="info-row full-row">
+          <span class="info-lbl">Examination</span>
+          <span class="info-val" id="info-exam">&mdash;</span>
+        </div>
+      </div>
+
+      <div class="wfoot">
+        <button class="btn-lg" onclick="showScreen('instructions-screen')">
+          Proceed to Instructions &rarr;
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SCREEN 2 — INSTRUCTIONS
+══════════════════════════════════════ -->
+<div id="instructions-screen" class="screen">
+  <div class="hdr">
+    <div class="hdr-in">
+      <div class="logo">
+        <span class="logo-t">TCS</span>
+        <span class="logo-i">iON</span>
+      </div>
+      <div class="hdr-sep"></div>
+      <div class="hdr-exam">CAT 2024 &mdash; General Instructions</div>
+    </div>
+  </div>
+
+  <div class="instr-wrap">
+    <div class="instr-head">
+      <h2>Read all instructions carefully</h2>
+      <p>You must accept the instructions before beginning the exam.</p>
+    </div>
+
+    <!-- Section timing table -->
+    <div class="icard">
+      <div class="icard-hdr">Section-Wise Time Allocation</div>
+      <div style="overflow-x:auto;">
+        <table class="timing-tbl">
+          <thead>
+            <tr>
+              <th>Section</th>
+              <th>Questions</th>
+              <th>MCQ</th>
+              <th>TITA</th>
+              <th>Duration</th>
+            </tr>
+          </thead>
+          <tbody id="timing-tbody"></tbody>
+          <tfoot id="timing-tfoot"></tfoot>
+        </table>
+      </div>
+    </div>
+
+    <!-- General rules -->
+    <div class="icard">
+      <div class="icard-hdr">General Instructions</div>
+      <div class="icard-body">
+        <ol>
+          <li>The clock is set at the server. The countdown timer at the top-right shows time remaining for the <strong>current section</strong>. When it reaches zero, the exam moves automatically to the next section.</li>
+          <li>This exam enforces <strong>sectional time limits</strong>. You cannot go back to a previous section or extend its time once it has expired.</li>
+          <li>The <strong>Question Palette</strong> on the right shows the status of every question in the current section. Click any numbered button to jump to that question.</li>
+          <li>To save your answer, click <strong>"Save &amp; Next"</strong>. Simply selecting an option does <em>not</em> save it automatically.</li>
+          <li>To flag a question for later review, click <strong>"Mark for Review &amp; Next"</strong>. If you have answered it, that answer will still be evaluated.</li>
+          <li>To deselect your current answer, click <strong>"Clear Response"</strong>.</li>
+          <li>Click <strong>"Submit"</strong> only when you are finished with the entire exam. This action is <strong>irreversible</strong>.</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Marking scheme -->
+    <div class="icard">
+      <div class="icard-hdr">Marking Scheme</div>
+      <div class="icard-body">
+        <ul>
+          <li><strong>MCQ questions:</strong> +3 marks for correct, &minus;1 mark for incorrect, 0 for unattempted.</li>
+          <li><strong>TITA questions:</strong> +3 marks for correct, <strong>no negative marking</strong> for an incorrect answer.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Palette legend -->
+    <div class="icard">
+      <div class="icard-hdr">Question Palette Colour Guide</div>
+      <div class="icard-body">
+        <div class="pal-prev">
+          <div class="prev-item">
+            <div class="leg-dot" style="background:var(--pal-gray);">1</div>
+            Not Visited
+          </div>
+          <div class="prev-item">
+            <div class="leg-dot" style="background:var(--pal-red);">2</div>
+            Not Answered
+          </div>
+          <div class="prev-item">
+            <div class="leg-dot" style="background:var(--pal-green);">3</div>
+            Answered
+          </div>
+          <div class="prev-item">
+            <div class="leg-dot" style="background:var(--pal-purple);">4</div>
+            Marked for Review
+          </div>
+          <div class="prev-item">
+            <div class="leg-dot" style="background:var(--pal-purgrn); position:relative;">5
+              <span style="position:absolute;bottom:-2px;right:-2px;width:10px;height:10px;border-radius:50%;background:var(--pal-green);font-size:7px;display:flex;align-items:center;justify-content:center;border:1.5px solid #fff;color:#fff;">&#10003;</span>
+            </div>
+            Answered &amp; Marked
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Agree + start button -->
+    <div class="instr-foot">
+      <label class="agree-row">
+        <input type="checkbox" id="agree-chk" onchange="onAgreeChange(this.checked)">
+        I have read and understood all instructions and agree to abide by the exam rules.
+      </label>
+      <button id="start-btn" class="btn-lg" disabled onclick="startExam()">
+        I'm Ready — Begin Exam &rarr;
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SCREEN 3 — EXAM INTERFACE
+══════════════════════════════════════ -->
+<div id="exam-screen" class="screen">
+  <!-- Header -->
+  <div class="hdr">
+    <div class="hdr-in">
+      <div class="logo">
+        <span class="logo-t">TCS</span>
+        <span class="logo-i">iON</span>
+      </div>
+      <div class="hdr-sep"></div>
+      <div class="hdr-exam">CAT 2024 &mdash; Mock Test</div>
+      <div style="flex:1;min-width:0;"></div>
+      <div class="hdr-cand">
+        <div>
+          <div class="hdr-cand-name" id="cand-name-hdr">Aarav Mehta</div>
+          <div class="hdr-cand-reg"  id="cand-reg-hdr">CAT24-MH-20481</div>
+        </div>
+        <div class="avatar js-avatar-letter">A</div>
+      </div>
+      <div class="hdr-sep"></div>
+      <div class="timer-blk">
+        <span class="timer-lbl">Time Left</span>
+        <span class="timer-val" id="timer-val">00:00</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section tabs -->
+  <div class="sec-tabs" id="sec-tabs"></div>
+
+  <!-- Main exam body -->
+  <div class="exam-body">
+    <!-- Question panel -->
+    <div class="q-area">
+      <div class="q-scroll" id="q-scroll">
+        <div class="q-meta" id="q-meta"></div>
+        <div id="passage-box" class="passage-box" hidden></div>
+        <div class="q-box">
+          <div class="q-text" id="q-text"></div>
+        </div>
+        <div id="opts-wrap"></div>
+      </div>
+
+      <!-- Action bar -->
+      <div class="action-bar">
+        <div class="ag">
+          <button class="btn btn-mark" onclick="markAndNext()">&#9711; Mark for Review &amp; Next</button>
+          <button class="btn btn-clear" onclick="clearResponse()">&#10005; Clear Response</button>
+        </div>
+        <div class="ag">
+          <button class="btn btn-out"  onclick="navigateQ(-1)">&larr; Back</button>
+          <button class="btn btn-save" onclick="saveAndNext()">Save &amp; Next &rarr;</button>
+          <button class="btn btn-sub"  onclick="confirmSubmit()">Submit</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Question palette panel -->
+    <div class="pal-panel" id="pal-panel">
+      <div class="pal-hdr">Question Palette</div>
+
+      <div class="pal-legend">
+        <div class="leg-row">
+          <div class="leg-dot" style="background:var(--pal-gray);">&middot;</div>Not Visited
+        </div>
+        <div class="leg-row">
+          <div class="leg-dot" style="background:var(--pal-red);">&middot;</div>Not Answered
+        </div>
+        <div class="leg-row">
+          <div class="leg-dot" style="background:var(--pal-green);">&middot;</div>Answered
+        </div>
+        <div class="leg-row">
+          <div class="leg-dot" style="background:var(--pal-purple);">&middot;</div>Marked for Review
+        </div>
+        <div class="leg-row">
+          <div class="leg-dot" style="background:var(--pal-purgrn); position:relative;">&middot;
+            <span style="position:absolute;bottom:-2px;right:-2px;width:9px;height:9px;border-radius:50%;background:var(--pal-green);font-size:6px;display:flex;align-items:center;justify-content:center;border:1px solid #fff;color:#fff;">&#10003;</span>
+          </div>Answered &amp; Marked
+        </div>
+      </div>
+
+      <div class="pal-sec-lbl" id="pal-sec-lbl"></div>
+      <div class="pal-grid"    id="pal-grid"></div>
+      <div class="pal-sum"     id="pal-sum"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SCREEN 4 — SUBMISSION SUMMARY
+══════════════════════════════════════ -->
+<div id="summary-screen" class="screen">
+  <div class="hdr">
+    <div class="hdr-in">
+      <div class="logo"><span class="logo-t">TCS</span><span class="logo-i">iON</span></div>
+      <div class="hdr-sep"></div>
+      <div class="hdr-exam">CAT 2024 &mdash; Submission Summary</div>
+    </div>
+  </div>
+
+  <div class="sum-wrap">
+    <div class="sum-head">
+      <h2>Review before you submit</h2>
+      <p>Check your section-wise attempt status. Once submitted, responses cannot be changed.</p>
+    </div>
+
+    <div class="icard" style="margin-bottom:14px;">
+      <div class="icard-hdr">Attempt Summary</div>
+      <div style="overflow-x:auto;">
+        <table class="sum-tbl">
+          <thead>
+            <tr>
+              <th>Section</th>
+              <th>Total</th>
+              <th>Answered</th>
+              <th>Not Answered</th>
+              <th>Marked</th>
+              <th>Ans &amp; Marked</th>
+              <th>Not Visited</th>
+            </tr>
+          </thead>
+          <tbody id="sum-tbody"></tbody>
+          <tfoot id="sum-tfoot"></tfoot>
+        </table>
+      </div>
+    </div>
+
+    <div class="warn-box">
+      &#9888;&nbsp; <strong>Warning:</strong> Clicking &ldquo;Final Submit&rdquo; will permanently lock your responses. This action cannot be undone.
+    </div>
+
+    <div class="sum-actions">
+      <button class="btn btn-out" style="padding:10px 22px;font-size:13.5px;" onclick="showScreen('exam-screen');">
+        &larr; Return to Exam
+      </button>
+      <button class="btn btn-danger" style="padding:10px 22px;font-size:13.5px;" onclick="finalSubmit()">
+        Final Submit &#10003;
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SCREEN 5 — RESULT / SCORECARD
+══════════════════════════════════════ -->
+<div id="result-screen" class="screen">
+  <div class="hdr">
+    <div class="hdr-in">
+      <div class="logo"><span class="logo-t">TCS</span><span class="logo-i">iON</span></div>
+      <div class="hdr-sep"></div>
+      <div class="hdr-exam">CAT 2024 &mdash; Scorecard</div>
+    </div>
+  </div>
+
+  <div class="res-outer">
+    <div class="res-card">
+      <!-- Banner -->
+      <div class="res-banner">
+        <div style="font-size:28px;margin-bottom:10px;">&#127881;</div>
+        <h2>Responses Submitted Successfully</h2>
+        <p id="res-candidate">CAT 2024 Mock Test</p>
+        <div class="res-score" id="res-score">0</div>
+        <div class="res-max">out of <span id="res-max"></span> marks</div>
+      </div>
+
+      <!-- Metrics row -->
+      <div class="metrics" id="metrics"></div>
+
+      <!-- Section breakdown -->
+      <div style="overflow-x:auto;">
+        <table class="sec-res-tbl">
+          <thead>
+            <tr>
+              <th>Section</th>
+              <th>Score</th>
+              <th>Correct</th>
+              <th>Wrong</th>
+              <th>Unattempted</th>
+            </tr>
+          </thead>
+          <tbody id="sec-res-tbody"></tbody>
+        </table>
+      </div>
+
+      <!-- Question-wise review -->
+      <div class="rev-section">
+        <h3>Question-wise Review</h3>
+        <div id="rev-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     MODAL — Confirm Submit
+══════════════════════════════════════ -->
+<div class="modal-ov" id="modal" hidden>
+  <div class="modal-box">
+    <div class="modal-hd">&#9888; Confirm Submission</div>
+    <div class="modal-bd">
+      <p>Are you sure you want to submit the exam?</p>
+      <p>You have <strong id="modal-unanswered"></strong> unanswered question(s).
+         Once submitted, you cannot return to the exam.</p>
+    </div>
+    <div class="modal-ft">
+      <button class="btn btn-clear" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-out"   onclick="goToSummary()">View Summary</button>
+      <button class="btn btn-danger" onclick="finalSubmit()">Submit Now</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
